@@ -1,4 +1,21 @@
 const { defineConfig } = require('@vue/cli-service')
+const Dotenv = require('dotenv-webpack')
+
 module.exports = defineConfig({
-  transpileDependencies: true
+  transpileDependencies: true,
+  configureWebpack: {
+    plugins: [
+      new Dotenv(),
+      require('unplugin-vue-components/webpack').default({
+        dirs: ['src/components/shared']
+      })
+    ],
+  },
+  css: {
+    loaderOptions: {
+      sass: {
+        additionalData: `@import "@/assets/styles/variables.scss";`
+      }
+    }
+  }
 })
